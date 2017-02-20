@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#02B3E4</color>
+  <color name="colorPrimaryDark">#0083D0</color>
+  <color name="colorAccent">#FF4081</color>
+
+  <color name="bg_buttons_in_main_page">@color/colorPrimary</color>
+  <color name="capstone_button">#FF6010</color>
+</resources>
