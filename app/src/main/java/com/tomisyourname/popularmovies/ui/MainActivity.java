@@ -17,6 +17,7 @@ import com.tomisyourname.popularmovies.R;
 import com.tomisyourname.popularmovies.bean.MovieObject;
 import com.tomisyourname.popularmovies.net.HttpRequest;
 import com.tomisyourname.popularmovies.net.HttpRequestListener;
+import com.tomisyourname.popularmovies.utils.NetworkUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +39,11 @@ public class MainActivity extends AppCompatActivity implements HttpRequestListen
     tvEmpty = (TextView) findViewById(R.id.tv_empty);
     gvMovies = (GridView) findViewById(R.id.gl_movies);
     gvMovies.setOnItemClickListener(this);
-    loadData();
+    if(NetworkUtils.isNetworkAvailable(this)) {
+      loadData();
+    } else {
+      showEmptyView();
+    }
   }
 
   @Override
@@ -55,9 +60,6 @@ public class MainActivity extends AppCompatActivity implements HttpRequestListen
         break;
       case R.id.action_order_by_rate:
         updateOrder("rate");
-        break;
-      case R.id.action_refresh:
-        loadData();
         break;
       default:
         break;

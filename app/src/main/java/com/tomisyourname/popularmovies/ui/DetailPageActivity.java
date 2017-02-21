@@ -19,7 +19,7 @@ public class DetailPageActivity extends AppCompatActivity {
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     setContentView(R.layout.activity_detail_page);
     Intent intent = getIntent();
-    MovieObject movie = (MovieObject) intent.getSerializableExtra("movie");
+    MovieObject movie = intent.getParcelableExtra("movie");
     ImageView ivPoster = (ImageView) findViewById(R.id.iv_poster);
     TextView tvTitle = (TextView) findViewById(R.id.tv_title);
     TextView tvRate = (TextView) findViewById(R.id.tv_rate);

@@ -12,9 +12,4 @@
     android:orderInCategory="101"
     android:title="@string/order_by_rate"
     app:showAsAction="never" />
-  <item
-    android:id="@+id/action_refresh"
-    android:orderInCategory="102"
-    android:title="@string/action_refresh"
-    app:showAsAction="never" />
 </menu>
