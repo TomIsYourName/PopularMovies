@@ -1,14 +1,13 @@
 package com.tomisyourname.popularmovies.ui;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,10 +25,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements HttpRequestListener, AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements HttpRequestListener {
 
   private MoviesListAdapter mAdapter;
-  private GridView gvMovies;
+  private RecyclerView rvMovies;
   private TextView tvEmpty;
 
   @Override
@@ -37,8 +36,9 @@ public class MainActivity extends AppCompatActivity implements HttpRequestListen
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     tvEmpty = (TextView) findViewById(R.id.tv_empty);
-    gvMovies = (GridView) findViewById(R.id.gl_movies);
-    gvMovies.setOnItemClickListener(this);
+    rvMovies = (RecyclerView) findViewById(R.id.rv_movies);
+    rvMovies.setHasFixedSize(true);
+    rvMovies.setLayoutManager(new LinearLayoutManager(this));
     if(NetworkUtils.isNetworkAvailable(this)) {
       loadData();
     } else {
@@ -68,14 +68,6 @@ public class MainActivity extends AppCompatActivity implements HttpRequestListen
   }
 
   @Override
-  public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-    Intent intent = new Intent(this, DetailPageActivity.class);
-    MovieObject movie = (MovieObject) mAdapter.getItem(position);
-    intent.putExtra("movie", movie);
-    startActivity(intent);
-  }
-
-  @Override
   public void onResponse(String response) {
     List<MovieObject> movies = parseMovies(response);
     updateList(movies);
@@ -101,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements HttpRequestListen
       @Override
       public void run() {
         mAdapter = new MoviesListAdapter(movies);
-        gvMovies.setAdapter(mAdapter);
+        rvMovies.setAdapter(mAdapter);
       }
     });
   }
